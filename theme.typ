@@ -2,6 +2,8 @@
 // The origin code was written by https://github.com/Enivex
 
 #import "@preview/touying:0.6.1": *
+#import "@preview/iconic-salmon-fa:1.1.0": *
+#import "fontset.typ": default-fontset
 
 /// Default slide function for the presentation.
 ///
@@ -42,9 +44,9 @@
   }
   let header(self) = {
     set std.align(top)
-    show: components.cell.with(fill: self.colors.secondary, inset: 1em)
+    show: components.cell.with(fill: self.colors.primary-dark, inset: (left: 1.6em, rest: 4pt), height: 2.4em)
     set std.align(horizon)
-    set text(fill: self.colors.neutral-lightest, weight: "medium", size: 1.2em)
+    set text(fill: self.colors.neutral-lightest, weight: "bold", size: 1.2em)
     components.left-and-right(
       {
         if title != auto {
@@ -53,7 +55,7 @@
           utils.call-or-display(self, self.store.header)
         }
       },
-      utils.call-or-display(self, self.store.header-right),
+      utils.call-or-display(self, move(image("assets/logo-white.svg", height: 100%))),
     )
   }
   let footer(self) = {
@@ -138,36 +140,47 @@
   let body = {
     set text(fill: self.colors.neutral-darkest)
     set std.align(horizon)
+    place(
+      scale({
+        place(image("assets/background.svg"))
+        rect(width: 100%, height: 100%, fill: self.colors.neutral-lightest.transparentize(30%))
+      }, x: 140%, y: 140%),
+    )
     block(
       width: 100%,
-      inset: 2em,
+      height: 100%,
+      inset: (x: 2em, top: 3.2cm, bottom: 1.6cm),
       {
-        components.left-and-right(
+        grid(
+          columns: 100%,
+          rows: (2fr, 1fr, auto),
+          row-gutter: 1cm,
           {
-            text(size: 1.3em, text(weight: "medium", info.title))
-            if info.subtitle != none {
-              linebreak()
-              text(size: 0.9em, info.subtitle)
-            }
+            set align(center + horizon)
+            show title: set text(fill: self.colors.primary-dark)
+            title(self.info.title)
           },
-          text(2em, utils.call-or-display(self, info.logo)),
+          if self.info.subtitle != none {
+            set align(center + top)
+            show title: set text(fill: self.colors.neutral-dark)
+            text(size: 1.2em, weight: "bold", self.info.subtitle)
+          } else { none },
+          {
+            set align(left)
+            set text(size: 0.8em)
+            terms(
+              terms.item(fa-circle-user(), self.info.author),
+              terms.item(fa-institution(), self.info.institution),
+              terms.item(fa-calendar(), self.info.date.display(self.info.at("datetime-format", default: "[year]年[month]月[day]日")),)
+            )
+          }
         )
-        line(length: 100%, stroke: .05em + self.colors.primary)
-        set text(size: .8em)
-        if info.author != none {
-          block(spacing: 1em, info.author)
-        }
-        if info.date != none {
-          block(spacing: 1em, utils.display-info-date(self))
-        }
-        set text(size: .8em)
-        if info.institution != none {
-          block(spacing: 1em, info.institution)
-        }
-        if extra != none {
-          block(spacing: 1em, extra)
-        }
-      },
+      }
+    )
+    place(
+      top + right,
+      image("assets/logo-title.svg", height: 1.6cm),
+      dy: -1cm,
     )
   }
   touying-slide(self: self, body)
@@ -319,11 +332,20 @@
       new-section-slide-fn: new-section-slide,
     ),
     config-methods(
+      init: (self: none, body) => {
+        let kwargs = args.named()
+        let math-font = kwargs.at("math-font", default: "New Computer Modern Math")
+        let text-size = kwargs.at("text-size", default: 20pt)
+        set text(size: text-size)
+        show math.equation: set text(font: math-font)
+        body
+      },
       alert: utils.alert-with-primary-color,
     ),
     config-colors(
-      primary: rgb("#eb811b"),
-      primary-light: rgb("#d6c6b7"),
+      primary: rgb("#006fb8"),
+      primary-light: rgb("#006fb8").lighten(30%),
+      primary-dark: rgb("#006fb8").darken(30%),
       secondary: rgb("#23373b"),
       neutral-lightest: rgb("#fafafa"),
       neutral-dark: rgb("#23373b"),

@@ -1,25 +1,35 @@
 #import "@preview/touying:0.6.1": *
 #import "../theme.typ": *
+#import "@preview/ctyp:0.3.0": *
+#let (ctypset, fonts) = ctyp(
+  fontset-cjk: default-fontset,
+  font-latin: (
+    serif: "Georgia",
+    sans: "Roboto",
+  ),
+  fix-first-line-indent: false,
+)
+#show: ctypset
 
 #show: hhu-theme.with(
   aspect-ratio: "16-9",
   config-info(
-    title: [Title],
-    subtitle: [Subtitle],
-    author: [Authors],
+    title: [标题],
+    subtitle: [子标题],
+    author: [作者],
     date: datetime.today(),
-    institution: [Institution],
+    institution: [单位],
     logo: emoji.school,
   ),
 )
 
 #title-slide()
 
-= Outline <touying:hidden>
+= 目录 <touying:hidden>
 
 #outline(title: none, indent: 1em, depth: 1)
 
-= First Section
+= 第一节
 
 ---
 
