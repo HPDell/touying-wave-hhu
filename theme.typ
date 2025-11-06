@@ -259,7 +259,7 @@
   let footer(self) = {
     set std.align(bottom)
     set text(size: 0.8em)
-    show: components.cell.with(fill: self.colors.primary)
+    show: components.cell.with(fill: self.colors.primary-dark)
     show: pad.with(x: 0.4em, y: 0.2em)
     components.left-and-right(
       text(
