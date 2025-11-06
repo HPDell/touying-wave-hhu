@@ -19,7 +19,6 @@
     author: [作者],
     date: datetime.today(),
     institution: [单位],
-    logo: emoji.school,
   ),
   config-page(
     footer: (self) => {

@@ -8,7 +8,6 @@
     author: [Author],
     date: datetime.today(),
     institution: [Institution],
-    logo: emoji.school,
   ),
   config-page(
     footer: (self) => {
