@@ -3,6 +3,8 @@
 
 #import "@preview/touying:0.6.1": *
 #import "@preview/iconic-salmon-fa:1.1.0": *
+#import "theme-color.typ": *
+#import "callout.typ": *
 #import "fontset.typ": default-fontset
 
 #let wave = image("assets/wave.svg", height: 100%)
@@ -395,13 +397,13 @@
       alert: utils.alert-with-primary-color,
     ),
     config-colors(
-      primary: rgb("#006fb8"),
-      primary-light: rgb("#006fb8").lighten(30%),
-      primary-dark: rgb("#006fb8").darken(30%),
-      secondary: rgb("#23373b"),
-      neutral-lightest: rgb("#fafafa"),
-      neutral-dark: rgb("#23373b"),
-      neutral-darkest: rgb("#23373b"),
+      primary: theme-color.blue,
+      primary-light: theme-color.blue.lighten(30%),
+      primary-dark: theme-color.blue.darken(30%),
+      secondary: theme-color.navy,
+      neutral-lightest: theme-color.white,
+      neutral-dark: theme-color.black,
+      neutral-darkest: theme-color.black,
     ),
     // save the variables for later use
     config-store(
