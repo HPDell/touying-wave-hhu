@@ -5,7 +5,8 @@
 #import "@preview/iconic-salmon-fa:1.1.0": *
 #import "fontset.typ": default-fontset
 
-#let wave = image("assets/background.svg", height: 100%)
+#let wave = image("assets/wave.svg", height: 100%)
+#let wave-dark = image("assets/wave-dark.svg", height: 100%)
 #let logo-blue = image("assets/logo.svg", height: 100%)
 
 /// Default slide function for the presentation.
@@ -384,6 +385,11 @@
         let text-size = kwargs.at("text-size", default: 20pt)
         set text(size: text-size)
         show math.equation: set text(font: math-font)
+        show heading.where(level: self.slide-level + 1): it => stack(
+          dir: ltr,
+          move(dx: -8pt, box(height: 0.8em, wave-dark)),
+          it
+        )
         body
       },
       alert: utils.alert-with-primary-color,
