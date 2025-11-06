@@ -298,7 +298,7 @@
   self = utils.merge-dicts(
     self,
     config-common(freeze-slide-counter: true),
-    config-page(fill: self.colors.neutral-dark, margin: 2em),
+    config-page(fill: self.colors.primary-dark, margin: 2em, footer: none, header: none),
   )
   set text(fill: self.colors.neutral-lightest, size: 1.5em)
   touying-slide(self: self, config: config, std.align(align, body))
