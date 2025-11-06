@@ -21,6 +21,11 @@
     institution: [单位],
     logo: emoji.school,
   ),
+  config-page(
+    footer: (self) => {
+      self.info.title
+    }
+  )
 )
 
 #title-slide()

@@ -65,7 +65,8 @@
     set std.align(bottom)
     set text(size: 0.8em)
     pad(
-      .5em,
+      x: .4em,
+      y: .2em,
       components.left-and-right(
         text(
           fill: self.colors.neutral-darkest.lighten(40%),
@@ -78,7 +79,7 @@
       ),
     )
     if self.store.footer-progress {
-      place(bottom, components.progress-bar(
+      place(top, components.progress-bar(
         height: 2pt,
         self.colors.primary,
         self.colors.primary-light,
@@ -137,7 +138,7 @@
     self,
     config,
     config-common(freeze-slide-counter: true),
-    config-page(fill: self.colors.neutral-lightest),
+    config-page(fill: self.colors.neutral-lightest, footer: none),
   )
   let info = self.info + args.named()
   let body = {
@@ -152,7 +153,7 @@
     block(
       width: 100%,
       height: 100%,
-      inset: (x: 2em, top: 3.2cm, bottom: 1.6cm),
+      inset: (x: 2em, top: 3.2cm, bottom: 0.8cm),
       {
         grid(
           columns: 100%,
@@ -172,9 +173,13 @@
             set align(left)
             set text(size: 0.8em)
             terms(
-              terms.item(fa-circle-user(), self.info.author),
-              terms.item(fa-institution(), self.info.institution),
-              terms.item(fa-calendar(), self.info.date.display(self.info.at("datetime-format", default: "[year]年[month]月[day]日")),)
+              ..(
+                if self.info.at("author", default: none) != none { terms.item(fa-circle-user(), self.info.author) } else { none },
+                if self.info.at("institution", default: none) != none { terms.item(fa-institution(), self.info.institution) } else { none },
+                if self.info.at("date", default: none) != none { 
+                  terms.item(fa-calendar(), self.info.date.display(self.info.at("datetime-format", default: "[year]年[month]月[day]日"))) 
+                } else { none },
+              ).filter(it => it != none)
             )
           }
         )
@@ -251,9 +256,28 @@
     }
     text(self.colors.neutral-dark, body)
   }
+  let footer(self) = {
+    set std.align(bottom)
+    set text(size: 0.8em)
+    show: components.cell.with(fill: self.colors.primary)
+    show: pad.with(x: 0.4em, y: 0.2em)
+    components.left-and-right(
+      text(
+        fill: self.colors.neutral-lightest,
+        utils.call-or-display(self, self.store.footer),
+      ),
+      text(fill: self.colors.neutral-lightest, utils.call-or-display(
+        self,
+        self.store.footer-right,
+      )),
+    )
+  }
   self = utils.merge-dicts(
     self,
-    config-page(fill: self.colors.neutral-lightest),
+    config-page(
+      fill: self.colors.neutral-lightest,
+      footer: footer,
+    ),
   )
   touying-slide(self: self, config: config, slide-body)
 })
