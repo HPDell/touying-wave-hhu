@@ -5,6 +5,9 @@
 #import "@preview/iconic-salmon-fa:1.1.0": *
 #import "fontset.typ": default-fontset
 
+#let wave = image("assets/background.svg", height: 100%)
+#let logo-blue = image("assets/logo.svg", height: 100%)
+
 /// Default slide function for the presentation.
 ///
 /// - title (string): The title of the slide. Default is `auto`.
@@ -142,7 +145,7 @@
     set std.align(horizon)
     place(
       scale({
-        place(image("assets/background.svg"))
+        place(wave)
         rect(width: 100%, height: 100%, fill: self.colors.neutral-lightest.transparentize(30%))
       }, x: 140%, y: 140%),
     )
@@ -205,28 +208,47 @@
   body,
 ) = touying-slide-wrapper(self => {
   let slide-body = {
-    set std.align(horizon)
-    show: pad.with(20%)
-    set text(size: 1.5em)
-    stack(
-      dir: ttb,
-      spacing: 1em,
-      text(self.colors.neutral-darkest, utils.display-current-heading(
-        level: level,
-        numbered: numbered,
-        style: auto,
-      )),
+    place(
+      top + right,
       block(
-        height: 2pt,
-        width: 100%,
-        spacing: 0pt,
-        components.progress-bar(
-          height: 2pt,
-          self.colors.primary,
-          self.colors.primary-light,
-        ),
+        height: 1.6cm,
+        logo-blue
       ),
+      dx: 1.3cm,
+      dy: -2cm,
     )
+    set std.align(horizon)
+    show: pad.with(16%)
+    {
+      set text(size: 1.5em)
+      stack(
+        dir: ttb,
+        spacing: 1em,
+        grid(
+          columns: (auto, 1fr),
+          column-gutter: 8pt,
+          block(
+            height: 1em,
+            wave
+          ),
+          text(self.colors.neutral-darkest, utils.display-current-heading(
+            level: level,
+            numbered: numbered,
+            style: auto,
+          ))
+        ),
+        block(
+          height: 2pt,
+          width: 100%,
+          spacing: 0pt,
+          components.progress-bar(
+            height: 2pt,
+            self.colors.primary,
+            self.colors.primary-light,
+          ),
+        ),
+      )
+    }
     text(self.colors.neutral-dark, body)
   }
   self = utils.merge-dicts(
