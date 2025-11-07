@@ -15,6 +15,34 @@
   logo-title: image("assets/logo-title.svg", height: 100%),
 )
 
+#let multi-columns(columns: auto, gutter: 1em, alignment: top, ..bodies) = {
+  let args = bodies.named()
+  let bodies = bodies.pos()
+  if bodies.len() == 1 {
+    return bodies.first()
+  }
+  let columns = if columns == auto {
+    (1fr,) * bodies.len()
+  } else {
+    columns
+  }
+  grid(columns: columns, gutter: gutter, align: alignment, ..args, ..bodies)
+}
+
+#let page-aligned(columns: auto, gutter: 1em, alignment: top, ..bodies) = {
+  let args = bodies.named()
+  let bodies = bodies.pos()
+  if bodies.len() == 1 {
+    return bodies.first()
+  }
+  let columns = if columns == auto {
+    (1fr,) * bodies.len()
+  } else {
+    columns
+  }
+  align(alignment, grid(columns: columns, gutter: gutter, align: alignment, ..args, ..bodies))
+}
+
 /// Default slide function for the presentation.
 ///
 /// - title (string): The title of the slide. Default is `auto`.
@@ -117,6 +145,21 @@
   )
 })
 
+#let slide-mc(
+  ..args,
+) = {
+  let kwargs = args.named()
+  let bodies = args.pos()
+  slide(..kwargs, composer: multi-columns, ..bodies)
+}
+
+#let slide-aligned(
+  ..args,
+) = {
+  let kwargs = args.named()
+  let bodies = args.pos()
+  slide(..kwargs, composer: page-aligned, ..bodies)
+}
 
 /// Title slide for the presentation. You should update the information in the `config-info` function. You can also pass the information directly to the `title-slide` function.
 ///

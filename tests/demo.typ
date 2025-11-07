@@ -33,7 +33,7 @@
 
 #outline(title: none, indent: 1em, depth: 1)
 
-= 第一节
+= 基本元素
 
 ---
 
@@ -66,13 +66,52 @@ $ x_(n+1) = (x_n + a/x_n) / 2 $
 
 #lorem(200)
 
-= Second Section
+= 布局
+
+== side-by-side 布局
+
+#slide[
+  #important[两列内容居中显示]
+
+  适合文字与图片并排，或者两张图片并排展示的场景。
+][
+  第二列
+]
+
+== multi-columns 布局
+
+#slide-mc[
+  === 第一列内容
+  
+  #important[内容顶端对齐]
+
+  适合多个标题和内容并列展示的场景。
+][
+  === 第二列内容
+][
+  === 第三列内容
+]
+
+== page-aligned 布局
+
+#slide-aligned[
+  === 第一列内容
+
+
+  沿页面顶端对齐
+][
+  === 第二列内容
+][
+  === 第三列内容
+]
+
+= 动画
 
 #focus-slide[
   注意
 ]
 
-== Simple Animation
+== 简单动画
 
 We can use `#pause` to #pause display something later.
 
