@@ -61,7 +61,7 @@
           utils.call-or-display(self, self.store.header)
         }
       },
-      utils.call-or-display(self, move(image("assets/logo-white.svg", height: 100%))),
+      utils.call-or-display(self, move(logo-white)),
     )
   }
   let footer(self) = {
