@@ -7,9 +7,13 @@
 #import "callout.typ": *
 #import "fontset.typ": default-fontset
 
-#let wave = image("assets/wave.svg", height: 100%)
-#let wave-dark = image("assets/wave-dark.svg", height: 100%)
-#let logo-blue = image("assets/logo.svg", height: 100%)
+#let assets = (
+  wave: image("assets/wave.svg", height: 100%),
+  wave-dark: image("assets/wave-dark.svg", height: 100%),
+  logo-blue: image("assets/logo.svg", height: 100%),
+  logo-white: image("assets/logo-white.svg", height: 100%),
+  logo-title: image("assets/logo-title.svg", height: 100%),
+)
 
 /// Default slide function for the presentation.
 ///
@@ -61,7 +65,7 @@
           utils.call-or-display(self, self.store.header)
         }
       },
-      utils.call-or-display(self, move(logo-white)),
+      utils.call-or-display(self, move(assets.logo-white)),
     )
   }
   let footer(self) = {
@@ -149,7 +153,7 @@
     set std.align(horizon)
     place(
       scale({
-        place(wave)
+        place(assets.wave)
         rect(width: 100%, height: 100%, fill: self.colors.neutral-lightest.transparentize(30%))
       }, x: 140%, y: 140%),
     )
@@ -190,7 +194,7 @@
     )
     place(
       top + right,
-      image("assets/logo-title.svg", height: 1.6cm),
+      block(height: 1.6cm, assets.logo-title),
       dy: -1cm,
     )
   }
@@ -220,7 +224,7 @@
       top + right,
       block(
         height: 1.6cm,
-        logo-blue
+        assets.logo-blue
       ),
       dx: 1.3cm,
       dy: -2cm,
@@ -237,7 +241,7 @@
           column-gutter: 8pt,
           block(
             height: 1em,
-            wave
+            assets.wave
           ),
           text(self.colors.neutral-darkest, utils.display-current-heading(
             level: level,
@@ -374,7 +378,7 @@
       paper: "presentation-" + aspect-ratio,
       header-ascent: 30%,
       footer-descent: 30%,
-      margin: (top: 3em, bottom: 1.5em, x: 2em),
+      margin: (top: 3.2em, bottom: 1.6em, x: 2em),
     ),
     config-common(
       slide-fn: slide,
@@ -389,7 +393,7 @@
         show math.equation: set text(font: math-font)
         show heading.where(level: self.slide-level + 1): it => stack(
           dir: ltr,
-          move(dx: -8pt, box(height: 0.8em, wave-dark)),
+          move(dx: -8pt, box(height: 0.8em, assets.wave-dark)),
           it
         )
         body
