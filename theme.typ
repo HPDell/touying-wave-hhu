@@ -8,11 +8,11 @@
 #import "fontset.typ": default-fontset
 
 #let assets = (
-  wave: image("assets/wave.svg", height: 100%),
-  wave-dark: image("assets/wave-dark.svg", height: 100%),
-  logo-blue: image("assets/logo.svg", height: 100%),
-  logo-white: image("assets/logo-white.svg", height: 100%),
-  logo-title: image("assets/logo-title.svg", height: 100%),
+  wave: image("assets/wave.svg"),
+  wave-dark: image("assets/wave-dark.svg"),
+  logo-blue: image("assets/logo.svg"),
+  logo-white: image("assets/logo-white.svg"),
+  logo-title: image("assets/logo-title.svg"),
 )
 
 #let multi-columns(columns: auto, gutter: 1em, alignment: top, ..bodies) = {
@@ -241,6 +241,56 @@
       dy: -1cm,
     )
   }
+  touying-slide(self: self, body)
+})
+
+
+#let outline-slide(title: [Outline], column: 1, max-content-width: 80%, max-column-width: 40%, marker: auto, ..args) = touying-slide-wrapper(self => {
+  let info = self.info + args.named()
+  let header = {
+    set align(center + bottom)
+    block(
+      fill: self.colors.neutral-lightest,
+      outset: (x: 2.4em, y: .8em),
+      stroke: (bottom: self.colors.primary + 3.2pt),
+      text(self.colors.primary-dark, weight: "bold", size: 1.6em, title)
+    )
+  }
+  let column-width = calc.min(max-content-width / column, max-column-width)
+  let body = {
+    set align(horizon + center)
+    show outline.entry: it => {
+      let mark = if ( marker == auto ) {
+        assets.wave
+      } else if type(marker) == image {
+        set image(height: .8em)
+        image
+      } else if type(marker) == symbol {
+        text(fill: self.colors.primary, marker)
+      }
+      show: block.with(below: 1em, width: 100%)
+      // place(dx: -2em, box(width: 1.6em, mark))
+      // it.body()
+      // h(0.2em)
+      // box(width: 1fr, repeat[.])
+      // h(0.2em)
+      // numbering(it.element.location().page-numbering(), it.element.location().page())
+      place(dx: -2em, box(width: 1.6em, mark))
+      box(it)
+    }
+    show: block.with(width: column-width * column)
+    set align(left)
+    columns(column, gutter: 3.2em, outline(title: none, indent: 1em, depth: 1))
+  }
+  self = utils.merge-dicts(
+    self,
+    config-page(
+      header: header,
+      footer: none,
+      margin: (top: 4cm, bottom: 2cm),
+      fill: self.colors.neutral-lightest
+    )
+  )
   touying-slide(self: self, body)
 })
 

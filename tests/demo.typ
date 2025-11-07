@@ -29,9 +29,7 @@
 
 #title-slide()
 
-= 目录 <touying:hidden>
-
-#outline(title: none, indent: 1em, depth: 1)
+#outline-slide(title: [目录], column: 1, indent: 1em, depth: 1)
 
 = 基本元素
 
