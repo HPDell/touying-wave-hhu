@@ -68,6 +68,7 @@ jobs:
             --exclude=.gitignore \
             --exclude=.vscode \
             --exclude=packages \
+            --exclude=tests \
             ../ \
             packages/preview/${{ env.PACKAGE_NAME }}/$PKG_VERSION/
           git add -A
