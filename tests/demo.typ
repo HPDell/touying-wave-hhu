@@ -58,7 +58,7 @@ A slide without a title but with some *important* information.
 
 === 幻灯片内的标题
 
-A slide with equation:
+A *slide with equation*:
 
 $ x_(n+1) = (x_n + a/x_n) / 2 $
 

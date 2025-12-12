@@ -21,6 +21,7 @@
     title: if title == none { "" } else if icon != none { 
       show: pad.with(left: .8em)
       box(width: 0em, move(icon, dx: -1.2em))
+      h(0.5em)
       title
     } else { title },
     title-style: (
@@ -31,6 +32,7 @@
       if title == none and icon != none {
         show: pad.with(left: .8em)
         box(width: 0em, move(icon, dx: -1.2em))
+        h(0.5em)
         body
       } else { body }
     })
@@ -73,8 +75,8 @@
 
 #let refer = callout.with(
   title-fg: theme-color.white,
-  title-bg: theme-color.pink,
-  body-bg: theme-color.pink.lighten(85%),
+  title-bg: theme-color.aqua,
+  body-bg: theme-color.aqua.lighten(85%),
 )
 
 // Callout with icons
@@ -84,15 +86,15 @@
 )
 
 #let important-i = important.with(
-  icon: "🚩",
+  icon: "💡",
 )
 
 #let warning-i = warning.with(
-  icon: "⚠️",
+  icon: "❗️",
 )
 
 #let caution-i = caution.with(
-  icon: "‼️",
+  icon: "⚠️",
 )
 
 #let note-i = note.with(

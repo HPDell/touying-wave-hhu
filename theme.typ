@@ -15,7 +15,7 @@
   logo-title: image("assets/logo-title.svg"),
 )
 
-#let multi-columns(columns: auto, gutter: 1em, alignment: top, ..bodies) = {
+#let multi-columns(columns: auto, gutter: 4em, alignment: top, ..bodies) = {
   let args = bodies.named()
   let bodies = bodies.pos()
   if bodies.len() == 1 {
@@ -29,7 +29,7 @@
   grid(columns: columns, gutter: gutter, align: alignment, ..args, ..bodies)
 }
 
-#let page-aligned(columns: auto, gutter: 1em, alignment: top, ..bodies) = {
+#let page-aligned(columns: auto, gutter: 4em, alignment: top, ..bodies) = {
   let args = bodies.named()
   let bodies = bodies.pos()
   if bodies.len() == 1 {
@@ -140,7 +140,7 @@
     config: config,
     repeat: repeat,
     setting: new-setting,
-    composer: composer,
+    composer: if composer == auto { multi-columns } else { composer },
     ..bodies,
   )
 })
@@ -483,11 +483,16 @@
         let math-font = kwargs.at("math-font", default: "New Computer Modern Math")
         let text-size = kwargs.at("text-size", default: 20pt)
         set text(size: text-size)
+        set strong(delta: 200)
         show math.equation: set text(font: math-font)
-        show heading.where(level: self.slide-level + 1): it => stack(
-          dir: ltr,
-          move(dx: -8pt, box(height: 0.8em, assets.wave-dark)),
-          it
+        show emph: self.methods.alert.with(self: self)
+        show heading.where(level: self.slide-level + 1): it => move(
+          dx: -8pt,
+          stack(
+            dir: ltr,
+            move(dx: -8pt, box(height: 0.8em, assets.wave-dark)),
+            it
+          )
         )
         body
       },
