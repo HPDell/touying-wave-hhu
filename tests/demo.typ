@@ -35,7 +35,7 @@
 
 ---
 
-A slide without a title but with some *important* information.
+A slide without a title but with some #highlight[important] information.
 
 #grid(
   columns: 4,
@@ -52,6 +52,27 @@ A slide without a title but with some *important* information.
   important-i(title: [重要])[内容],
   caution-i(title: [警惕])[内容],
   refer-i(title: [参考])[内容],
+)
+
+---
+
+A slide without a title but with some #highlight[important] information.
+
+#grid(
+  columns: 4,
+  gutter: 8pt,
+  note[不带标题的内容，但是可以带图标],
+  example[不带标题的内容，但是可以带图标],
+  warning[不带标题的内容，但是可以带图标],
+  important[不带标题的内容，但是可以带图标],
+  caution[不带标题的内容，但是可以带图标],
+  refer[不带标题的内容，但是可以带图标],
+  note-i[不带标题的内容，但是可以带图标],
+  example-i[不带标题的内容，但是可以带图标],
+  warning-i[不带标题的内容，但是可以带图标],
+  important-i[不带标题的内容，但是可以带图标],
+  caution-i[不带标题的内容，但是可以带图标],
+  refer-i[不带标题的内容],
 )
 
 == A long long long long long long long long long long long long long long long long long long long long long long long long Title

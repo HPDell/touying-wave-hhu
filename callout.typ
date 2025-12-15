@@ -9,7 +9,8 @@
   body-fg: theme-color.black,
   body-bg: theme-color.blue.lighten(85%),
   border: theme-color.white + 0pt,
-  ..bodies) = {
+  ..bodies
+) = {
   set text(size: 0.9em)
   showybox(
     frame: (
@@ -19,9 +20,8 @@
       thickness: border.thickness,
     ),
     title: if title == none { "" } else if icon != none { 
-      show: pad.with(left: .8em)
-      box(width: 0em, move(icon, dx: -1.2em))
-      h(0.5em)
+      show: pad.with(left: 1em)
+      place(icon, top + left, dx: -1.5em)
       title
     } else { title },
     title-style: (
@@ -30,9 +30,8 @@
     ),
     ..bodies.pos().map(body => {
       if title == none and icon != none {
-        show: pad.with(left: .8em)
-        box(width: 0em, move(icon, dx: -1.2em))
-        h(0.5em)
+        show: pad.with(left: 1em)
+        place(icon, top + left, dx: -1.5em)
         body
       } else { body }
     })
