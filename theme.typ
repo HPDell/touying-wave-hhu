@@ -70,6 +70,7 @@
 /// - bodies (array): The contents of the slide. You can call the `slide` function with syntax like `#slide[A][B][C]` to create a slide.
 #let slide(
   title: auto,
+  subtitle: none,
   align: auto,
   config: (:),
   repeat: auto,
@@ -84,15 +85,29 @@
     set std.align(top)
     show: components.cell.with(fill: self.colors.primary-dark, inset: (left: 1.6em, rest: 4pt), height: 2.4em)
     set std.align(horizon)
-    set text(fill: self.colors.neutral-lightest, weight: "bold", size: 1.2em)
     components.left-and-right(
-      {
-        if title != auto {
-          utils.fit-to-width(grow: false, 100%, title)
-        } else {
-          utils.call-or-display(self, self.store.header)
-        }
-      },
+      stack(
+        dir: ltr,
+        spacing: 0.5em,
+        {
+          set text(fill: self.colors.neutral-lightest, weight: "bold", size: 1.2em)
+          if title != auto {
+            utils.fit-to-width(grow: false, 100%, title)
+          } else {
+            utils.call-or-display(self, self.store.header)
+          }
+        },
+        {
+          set text(fill: self.colors.neutral-lightest, size: 1.5em)
+          if subtitle != none {
+            sym.bar
+          }
+        },
+        {
+          set text(fill: self.colors.neutral-lightest, size: 1em)
+          subtitle
+        },
+      ),
       utils.call-or-display(self, move(assets.logo-white)),
     )
   }
@@ -100,8 +115,9 @@
     set std.align(bottom)
     set text(size: 0.8em)
     pad(
-      x: .4em,
-      y: .2em,
+      left: 1.6em,
+      right: .4em,
+      bottom: .3em,
       components.left-and-right(
         text(
           fill: self.colors.neutral-darkest.lighten(40%),
@@ -360,7 +376,7 @@
     set std.align(bottom)
     set text(size: 0.8em)
     show: components.cell.with(fill: self.colors.primary-dark)
-    show: pad.with(x: 0.4em, y: 0.2em)
+    show: pad.with(left: 1.6em, x: 0.4em, bottom: 0.3em)
     components.left-and-right(
       text(
         fill: self.colors.neutral-lightest,
@@ -483,7 +499,6 @@
         let math-font = kwargs.at("math-font", default: "New Computer Modern Math")
         let text-size = kwargs.at("text-size", default: 20pt)
         set text(size: text-size)
-        set strong(delta: 200)
         show strong: it => text(fill: self.colors.neutral-dark, it)
         show math.equation: set text(font: math-font)
         show heading.where(level: self.slide-level + 1): it => move(
@@ -491,7 +506,7 @@
           stack(
             dir: ltr,
             move(dx: -8pt, box(height: 0.8em, assets.wave-dark)),
-            text(fill: self.colors.primary-dark, it)
+            strong(text(fill: self.colors.primary-dark, it))
           )
         )
         body

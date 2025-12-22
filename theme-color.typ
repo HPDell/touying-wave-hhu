@@ -2,7 +2,7 @@
   blue: rgb("#006fb8"),
   navy: rgb("#214046"),
   red: rgb("#ce2637"),
-  orange: rgb("#ff5e01c6"),
+  orange: rgb("#f46b21fb"),
   purple: rgb("#713579db"),
   pink: rgb("#e9269a"),
   lime: rgb("#058805"),

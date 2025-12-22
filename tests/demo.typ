@@ -20,7 +20,7 @@
     date: datetime.today(),
     institution: [单位],
   ),
-  config-page(
+  config-store(
     footer: (self) => {
       self.info.title
     }
@@ -33,26 +33,26 @@
 
 = 基本元素
 
----
+#slide(subtitle: [带标题框])[
+  A slide without a title but with some #highlight[important] information.
 
-A slide without a title but with some #highlight[important] information.
-
-#grid(
-  columns: 4,
-  gutter: 8pt,
-  note(title: [说明])[内容],
-  example(title: [示例])[内容],
-  warning(title: [注意])[内容],
-  important(title: [重要])[内容],
-  caution(title: [警惕])[内容],
-  refer(title: [参考])[内容],
-  note-i(title: [说明])[内容],
-  example-i(title: [示例])[内容],
-  warning-i(title: [注意])[内容],
-  important-i(title: [重要])[内容],
-  caution-i(title: [警惕])[内容],
-  refer-i(title: [参考])[内容],
-)
+  #grid(
+    columns: 4,
+    gutter: 8pt,
+    note(title: [说明])[内容],
+    example(title: [示例])[内容],
+    warning(title: [注意])[内容],
+    important(title: [重要])[内容],
+    caution(title: [警惕])[内容],
+    refer(title: [参考])[内容],
+    note-i(title: [说明])[内容],
+    example-i(title: [示例])[内容],
+    warning-i(title: [注意])[内容],
+    important-i(title: [重要])[内容],
+    caution-i(title: [警惕])[内容],
+    refer-i(title: [参考])[内容],
+  )
+]
 
 ---
 
