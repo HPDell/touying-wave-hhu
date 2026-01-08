@@ -252,7 +252,7 @@
       }
     )
     place(
-      top + right,
+      top + left,
       block(height: 1.6cm, assets.logo-title),
       dy: -1cm,
     )
