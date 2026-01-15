@@ -83,14 +83,40 @@
   }
   let header(self) = {
     set std.align(top)
-    show: components.cell.with(fill: self.colors.primary-dark, inset: (left: 1.6em, rest: 4pt), height: 2.4em)
+    show: components.cell.with(
+      fill: self.colors.neutral-lightest,
+      inset: (left: 0.8em, rest: 4pt),
+      height: 2.4em,
+      stroke: (
+        bottom: 4pt + self.colors.primary-dark
+      )
+    )
     set std.align(horizon)
     components.left-and-right(
       stack(
         dir: ltr,
         spacing: 0.5em,
         {
-          set text(fill: self.colors.neutral-lightest, weight: "bold", size: 1.2em)
+          show: block.with(width: 1.2em, height: 1.2em)
+          place(
+            bottom + right,
+            rect(
+              height: 100%,
+              width: 100%,
+              stroke: none,
+              fill: self.colors.primary-light
+            ),
+            dx: 2pt, dy: 2pt
+          )
+          move(dx: -2pt, dy: -2pt, rect(
+            height: 100%,
+            width: 100%,
+            stroke: none,
+            fill: self.colors.primary-dark
+          ))
+        },
+        {
+          set text(fill: self.colors.primary-dark, weight: "bold", size: 1.4em)
           if title != auto {
             utils.fit-to-width(grow: false, 100%, title)
           } else {
@@ -108,7 +134,7 @@
           subtitle
         },
       ),
-      utils.call-or-display(self, move(assets.logo-white)),
+      utils.call-or-display(self, move(assets.logo-blue)),
     )
   }
   let footer(self) = {
@@ -371,18 +397,19 @@
       )
     }
     text(self.colors.neutral-dark, body)
+    v(2cm)
   }
   let footer(self) = {
     set std.align(bottom)
     set text(size: 0.8em)
-    show: components.cell.with(fill: self.colors.primary-dark)
+    show: components.cell.with(fill: self.colors.neutral-lightest)
     show: pad.with(left: 1.6em, x: 0.4em, bottom: 0.3em)
     components.left-and-right(
       text(
-        fill: self.colors.neutral-lightest,
+        fill: self.colors.neutral-darkest.lighten(40%),
         utils.call-or-display(self, self.store.footer),
       ),
-      text(fill: self.colors.neutral-lightest, utils.call-or-display(
+      text(fill: self.colors.neutral-darkest.lighten(40%), utils.call-or-display(
         self,
         self.store.footer-right,
       )),
