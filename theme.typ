@@ -124,13 +124,13 @@
           }
         },
         {
-          set text(fill: self.colors.neutral-lightest, size: 1.5em)
+          set text(fill: self.colors.primary-dark, size: 1.5em)
           if subtitle != none {
             sym.bar
           }
         },
         {
-          set text(fill: self.colors.neutral-lightest, size: 1em)
+          set text(fill: self.colors.primary-dark, size: 1.2em)
           subtitle
         },
       ),
