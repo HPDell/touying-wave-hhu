@@ -40,7 +40,9 @@
   } else {
     columns
   }
-  align(alignment, grid(columns: columns, gutter: gutter, align: alignment, ..args, ..bodies))
+  block(
+    grid(columns: columns, gutter: gutter, align: alignment, ..args, ..bodies)
+  )
 }
 
 /// Default slide function for the presentation.
