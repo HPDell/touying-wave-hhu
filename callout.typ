@@ -5,9 +5,9 @@
   icon: none,
   title: none,
   title-fg: theme-color.blue,
-  title-bg: theme-color.blue.lighten(85%),
+  title-bg: theme-color.blue.lighten(90%),
   body-fg: theme-color.black,
-  body-bg: theme-color.blue.lighten(85%),
+  body-bg: theme-color.blue.lighten(90%),
   border: theme-color.white + 0pt,
   ..bodies
 ) = {
@@ -38,54 +38,60 @@
   )
 }
 
+#let question = callout.with(
+  title-fg: theme-color.black,
+  title-bg: theme-color.pink.lighten(60%),
+  body-bg: theme-color.pink.lighten(90%),
+)
+
 #let tip = callout.with(
   icon: "💡"
 )
 
+#let note = callout.with(
+  title-fg: theme-color.black,
+  title-bg: theme-color.blue.lighten(60%),
+  body-bg: theme-color.blue.lighten(90%),
+)
+
 #let example = callout.with(
-  title-fg: theme-color.white,
-  title-bg: theme-color.lime.darken(10%),
-  body-bg: theme-color.lime.lighten(85%),
+  title-fg: theme-color.black,
+  title-bg: theme-color.lime.lighten(60%),
+  body-bg: theme-color.lime.lighten(90%),
 )
 
 #let important = callout.with(
-  title-fg: theme-color.white,
-  title-bg: theme-color.purple,
-  body-bg: theme-color.purple.lighten(85%),
+  title-fg: theme-color.black,
+  title-bg: theme-color.purple.lighten(60%),
+  body-bg: theme-color.purple.lighten(90%),
 )
 
 #let warning = callout.with(
-  title-fg: theme-color.white,
-  title-bg: theme-color.orange,
-  body-bg: theme-color.orange.lighten(85%),
+  title-fg: theme-color.black,
+  title-bg: theme-color.orange.lighten(60%),
+  body-bg: theme-color.orange.lighten(90%),
 )
 
 #let caution = callout.with(
-  title-fg: theme-color.white,
-  title-bg: theme-color.red,
-  body-bg: theme-color.red.lighten(85%),
-)
-
-#let note = callout.with(
-  title-fg: theme-color.white,
-  title-bg: theme-color.blue.darken(10%),
-  body-bg: theme-color.blue.lighten(85%),
+  title-fg: theme-color.black,
+  title-bg: theme-color.red.lighten(60%),
+  body-bg: theme-color.red.lighten(90%),
 )
 
 #let refer = callout.with(
-  title-fg: theme-color.white,
-  title-bg: theme-color.aqua,
-  body-bg: theme-color.aqua.lighten(85%),
+  title-fg: theme-color.black,
+  title-bg: theme-color.aqua.lighten(60%),
+  body-bg: theme-color.aqua.lighten(90%),
 )
 
 // Callout with icons
 
 #let example-i = example.with(
-  icon: "🧩",
+  icon: "💡",
 )
 
 #let important-i = important.with(
-  icon: "💡",
+  icon: "🌟",
 )
 
 #let warning-i = warning.with(
@@ -93,7 +99,7 @@
 )
 
 #let caution-i = caution.with(
-  icon: "⚠️",
+  icon: "🚩",
 )
 
 #let note-i = note.with(
@@ -102,4 +108,8 @@
 
 #let refer-i = refer.with(
   icon: "🔖",
+)
+
+#let question-i = question.with(
+  icon: "❓",
 )

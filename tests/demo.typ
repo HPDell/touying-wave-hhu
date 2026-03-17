@@ -36,44 +36,59 @@
 #slide(subtitle: [带标题框])[
   A slide without a title but with some #highlight[important] information.
 
-  #grid(
-    columns: 4,
-    gutter: 8pt,
-    note(title: [说明])[内容],
-    example(title: [示例])[内容],
-    warning(title: [注意])[内容],
-    important(title: [重要])[内容],
-    caution(title: [警惕])[内容],
-    refer(title: [参考])[内容],
-    note-i(title: [说明])[内容],
-    example-i(title: [示例])[内容],
-    warning-i(title: [注意])[内容],
-    important-i(title: [重要])[内容],
-    caution-i(title: [警惕])[内容],
-    refer-i(title: [参考])[内容],
-  )
+  #{
+    set text(size: 0.8em)
+    grid(
+      columns: 7,
+      column-gutter: 4pt,
+      row-gutter: 8pt,
+      note(title: [说明])[`note`],
+      example(title: [示例])[`example`],
+      warning(title: [注意])[`warning`],
+      important(title: [重要])[`important`],
+      caution(title: [警惕])[`caution`],
+      refer(title: [参考])[`refer`],
+      question(title: [问题])[`question`],
+      note-i(title: [说明])[`note-i`],
+      example-i(title: [示例])[`example-i`],
+      warning-i(title: [注意])[`warning-i`],
+      important-i(title: [重要])[`important-i`],
+      caution-i(title: [警惕])[`caution-i`],
+      refer-i(title: [参考])[`refer-i`],
+      question-i(title: [问题])[`question-i`],
+      note[无标题],
+      example[无标题],
+      warning[无标题],
+      important[无标题],
+      caution[无标题],
+      refer[无标题],
+      question[无标题],
+      note-i[仅图标],
+      example-i[仅图标],
+      warning-i[仅图标],
+      important-i[仅图标],
+      caution-i[仅图标],
+      refer-i[仅图标],
+      question-i[仅图标],
+    )
+
+    heading(level: 3)[用法示例]
+    
+    grid(
+      columns: 4,
+      column-gutter: 4pt,
+      row-gutter: 1em,
+      [带标题],
+      [标题和图标],
+      [无标题],
+      [仅图标],
+      note(title: [标题])[`#note(title: [])[]`],
+      note-i(title: [标题和图标])[`#note-i(title: [])[]`],
+      note[`#note[]`],
+      note[`#note-i[]`],
+    )
+  }
 ]
-
----
-
-A slide without a title but with some #highlight[important] information.
-
-#grid(
-  columns: 4,
-  gutter: 8pt,
-  note[不带标题的内容，但是可以带图标],
-  example[不带标题的内容，但是可以带图标],
-  warning[不带标题的内容，但是可以带图标],
-  important[不带标题的内容，但是可以带图标],
-  caution[不带标题的内容，但是可以带图标],
-  refer[不带标题的内容，但是可以带图标],
-  note-i[不带标题的内容，但是可以带图标],
-  example-i[不带标题的内容，但是可以带图标],
-  warning-i[不带标题的内容，但是可以带图标],
-  important-i[不带标题的内容，但是可以带图标],
-  caution-i[不带标题的内容，但是可以带图标],
-  refer-i[不带标题的内容],
-)
 
 == A long long long long long long long long long long long long long long long long long long long long long long long long Title
 
