@@ -98,6 +98,11 @@ A *slide with equation*:
 
 $ x_(n+1) = (x_n + a/x_n) / 2 $
 
+- #lorem(10)
+- #lorem(10)
+
+=== 幻灯片内的标题
+
 #lorem(200)
 
 = 布局
