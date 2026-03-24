@@ -7,6 +7,6 @@
   pink: rgb("#e9269a"),
   lime: rgb("#058805"),
   aqua: rgb("#009b94"),
-  white: rgb("#fafafa"),
+  white: rgb("#ffffff"),
   black: rgb("#000000"),
 )
