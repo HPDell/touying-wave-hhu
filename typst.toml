@@ -1,6 +1,6 @@
 [package]
 name = "touying-wave-hhu"
-version = "0.1.0"
+version = "0.2.0"
 entrypoint = "theme.typ"
 authors = ["HPDell <huyg0180110559@outlook.com>"]
 license = "MIT"
