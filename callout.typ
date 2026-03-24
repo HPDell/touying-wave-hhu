@@ -12,6 +12,12 @@
   ..bodies
 ) = {
   set text(size: 0.9em)
+  let bodies = bodies.pos()
+  let title = if title == none {
+    if bodies.len() == 2 {
+      bodies.remove(0)
+    }
+  } else { title }
   showybox(
     frame: (
       title-color: title-bg,
@@ -28,7 +34,7 @@
       color: title-fg,
       weight: "bold"
     ),
-    ..bodies.pos().map(body => {
+    ..bodies.map(body => {
       if title == none and icon != none {
         show: pad.with(left: 1em)
         place(icon, top + left, dx: -1.5em)
