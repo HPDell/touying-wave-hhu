@@ -84,6 +84,7 @@
     self.store.align = align
   }
   let header(self) = {
+    let subtitle = if subtitle == none { utils.call-or-display(self, self.store.subtitle) }
     set std.align(top)
     show: components.cell.with(
       fill: self.colors.neutral-lightest,
@@ -123,12 +124,6 @@
             utils.fit-to-width(grow: false, 100%, title)
           } else {
             utils.call-or-display(self, self.store.header)
-          }
-        },
-        {
-          set text(fill: self.colors.primary-dark, size: 1.5em)
-          if subtitle != none {
-            sym.bar
           }
         },
         {
@@ -366,26 +361,24 @@
       dx: 1.3cm,
       dy: -2cm,
     )
-    set std.align(horizon)
+    v(4cm)
     show: pad.with(16%)
     {
       set text(size: 1.5em)
       stack(
         dir: ttb,
         spacing: 1em,
-        grid(
-          columns: (auto, 1fr),
-          column-gutter: 8pt,
-          block(
+        {
+          place(block(
             height: 1em,
             assets.wave
-          ),
-          text(self.colors.neutral-darkest, utils.display-current-heading(
+          ),)
+          align(center, text(self.colors.primary-dark, utils.display-current-heading(
             level: level,
             numbered: numbered,
             style: auto,
-          ))
-        ),
+          )))
+        },
         block(
           height: 2pt,
           width: 100%,
@@ -396,6 +389,102 @@
             self.colors.primary-light,
           ),
         ),
+      )
+    }
+    text(self.colors.neutral-dark, body)
+    v(2cm)
+  }
+  let footer(self) = {
+    set std.align(bottom)
+    set text(size: 0.8em)
+    show: components.cell.with(fill: self.colors.neutral-lightest)
+    show: pad.with(left: 1.6em, x: 0.4em, bottom: 0.3em)
+    components.left-and-right(
+      text(
+        fill: self.colors.neutral-darkest.lighten(40%),
+        utils.call-or-display(self, self.store.footer),
+      ),
+      text(fill: self.colors.neutral-darkest.lighten(40%), utils.call-or-display(
+        self,
+        self.store.footer-right,
+      )),
+    )
+  }
+  self = utils.merge-dicts(
+    self,
+    config-page(
+      fill: self.colors.neutral-lightest,
+      footer: footer,
+    ),
+  )
+  touying-slide(self: self, config: config, slide-body)
+})
+
+
+/// New section slide for the presentation. You can update it by updating the `new-section-slide-fn` argument for `config-common` function.
+///
+/// Example: `config-common(new-section-slide-fn: new-section-slide.with(numbered: false))`
+///
+/// - config (dictionary): The configuration of the slide. You can use `config-xxx` to set the configuration of the slide. For several configurations, you can use `utils.merge-dicts` to merge them.
+///
+/// - level (int): The level of the heading.
+///
+/// - numbered (boolean): Indicates whether the heading is numbered.
+///
+/// - body (auto): The body of the section. It will be passed by touying automatically.
+#let new-subsection-slide(
+  config: (:),
+  level: 2,
+  numbered: true,
+  body,
+) = touying-slide-wrapper(self => {
+  let slide-body = {
+    place(
+      top + right,
+      block(
+        height: 1.6cm,
+        assets.logo-blue
+      ),
+      dx: 1.3cm,
+      dy: -2cm,
+    )
+    v(4cm)
+    show: pad.with(16%)
+    {
+      stack(
+        dir: ttb,
+        spacing: 1em,
+        {
+      set text(size: 1.5em)
+          place(block(
+            height: 1em,
+            assets.wave
+          ),)
+          align(center, text(self.colors.neutral-darkest, utils.display-current-heading(
+            level: level,
+            numbered: numbered,
+            style: auto,
+          )))
+        },
+        block(
+          height: 2pt,
+          width: 100%,
+          spacing: 0pt,
+          components.progress-bar(
+            height: 2pt,
+            self.colors.primary,
+            self.colors.primary-light,
+          ),
+        ),
+        {
+          set text(size: 1.2em)
+          align(right, utils.display-current-heading(
+            level: level - 1,
+            style: (it) => {
+              strong(text(self.colors.primary-dark, it.body))
+            },
+          ))
+        }
       )
     }
     text(self.colors.neutral-dark, body)
@@ -496,11 +585,9 @@
 #let hhu-theme(
   aspect-ratio: "16-9",
   align: horizon,
-  header: self => utils.display-current-heading(
-    setting: utils.fit-to-width.with(grow: false, 100%),
-    depth: self.slide-level,
-  ),
+  header: auto,
   header-right: self => self.info.logo,
+  subtitle-show-slide-heading: false,
   footer: none,
   footer-right: context utils.slide-counter.display()
     + " / "
@@ -530,14 +617,17 @@
         set text(size: text-size)
         show strong: it => text(fill: self.colors.neutral-dark, it)
         show math.equation: set text(font: math-font)
-        show heading.where(level: self.slide-level + 1): it => move(
-          dx: -8pt,
-          stack(
-            dir: ltr,
-            move(dx: -8pt, box(height: 0.8em, assets.wave-dark)),
-            strong(text(fill: self.colors.primary-dark, it))
+        show heading.where(level: self.slide-level + 1): it => {
+          set block(above: 1.5em)
+          move(
+            dx: -8pt,
+            stack(
+              dir: ltr,
+              move(dx: -8pt, box(height: 0.8em, assets.wave-dark)),
+              strong(text(fill: self.colors.primary-dark, it))
+            )
           )
-        )
+        }
         body
       },
       alert: utils.alert-with-primary-color,
@@ -554,11 +644,24 @@
     // save the variables for later use
     config-store(
       align: align,
-      header: header,
+      header: if header == auto {
+        self => utils.display-current-heading(
+          setting: utils.fit-to-width.with(grow: false, 100%),
+          depth: if subtitle-show-slide-heading { self.slide-level - 1 } else { self.slide-level },
+        )
+      },
       header-right: header-right,
       footer: footer,
       footer-right: footer-right,
       footer-progress: footer-progress,
+      subtitle-show-slide-heading: subtitle-show-slide-heading,
+      subtitle: {
+        if subtitle-show-slide-heading {
+          self => utils.display-current-heading(level: self.slide-level, style: it => {
+            stack(dir: ltr, spacing: 0.4em, scale(sym.bar, y: 150%), it.body)
+          })
+        }
+      }
     ),
     ..args,
   )
