@@ -1,4 +1,4 @@
-#import "@preview/touying-wave-hhu:0.1.0": *
+#import "@preview/touying-wave-hhu:0.2.0": *
 
 #show: hhu-theme.with(
   aspect-ratio: "16-9",
