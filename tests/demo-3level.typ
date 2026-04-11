@@ -40,6 +40,8 @@
 
 == 带标题框
 
+标题下的文字
+
 #slide[
   A slide without a title but with some #highlight[important] information.
 
