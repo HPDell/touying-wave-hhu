@@ -3,7 +3,7 @@
 
 #let callout(
   icon: none,
-  title: none,
+  title: auto,
   title-fg: theme-color.blue,
   title-bg: theme-color.blue.lighten(90%),
   body-fg: theme-color.black,
@@ -13,7 +13,7 @@
 ) = {
   set text(size: 0.9em)
   let bodies = bodies.pos()
-  let title = if title == none {
+  let title = if title == auto {
     if bodies.len() == 2 {
       bodies.remove(0)
     }
