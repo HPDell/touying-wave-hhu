@@ -362,7 +362,7 @@
       dy: -2cm,
     )
     v(4cm)
-    show: pad.with(16%)
+    show: pad.with(x: 16%)
     {
       set text(size: 1.5em)
       stack(
@@ -391,8 +391,8 @@
         ),
       )
     }
-    text(self.colors.neutral-dark, body)
     v(2cm)
+    text(self.colors.neutral-dark, body)
   }
   let footer(self) = {
     set std.align(bottom)
@@ -449,7 +449,7 @@
       dy: -2cm,
     )
     v(4cm)
-    show: pad.with(16%)
+    show: pad.with(x: 16%)
     {
       stack(
         dir: ttb,
@@ -487,8 +487,8 @@
         }
       )
     }
-    text(self.colors.neutral-dark, body)
     v(2cm)
+    text(self.colors.neutral-dark, body)
   }
   let footer(self) = {
     set std.align(bottom)
