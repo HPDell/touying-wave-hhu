@@ -15,6 +15,25 @@
   logo-title: image("assets/logo-title.svg"),
 )
 
+#let h4-mark(self) = block(width: 0.8em, height: 0.8em, {
+  place(
+    bottom + right,
+    rect(
+      height: 100%,
+      width: 100%,
+      stroke: none,
+      fill: self.colors.primary-light
+    ),
+    dx: 10%, dy: 10%
+  )
+  move(dx: -10%, dy: -10%, rect(
+    height: 100%,
+    width: 100%,
+    stroke: none,
+    fill: self.colors.primary-dark
+  ))
+})
+
 #let multi-columns(columns: auto, gutter: 2em, alignment: top, ..bodies) = {
   let args = bodies.named()
   let bodies = bodies.pos()
@@ -95,29 +114,12 @@
       )
     )
     set std.align(horizon)
+    place(dx: -0.8em, dy: 0.4em, block(height: 1.2em, assets.wave-dark))
     components.left-and-right(
       stack(
         dir: ltr,
         spacing: 0.5em,
-        {
-          show: block.with(width: 1.2em, height: 1.2em)
-          place(
-            bottom + right,
-            rect(
-              height: 100%,
-              width: 100%,
-              stroke: none,
-              fill: self.colors.primary-light
-            ),
-            dx: 2pt, dy: 2pt
-          )
-          move(dx: -2pt, dy: -2pt, rect(
-            height: 100%,
-            width: 100%,
-            stroke: none,
-            fill: self.colors.primary-dark
-          ))
-        },
+        h(2em),
         {
           set text(fill: self.colors.primary-dark, weight: "bold", size: 1.4em)
           if title != auto {
@@ -620,10 +622,10 @@
         show heading.where(level: self.slide-level + 1): it => {
           set block(above: 1.5em)
           move(
-            dx: -8pt,
+            dx: 4pt,
             stack(
               dir: ltr,
-              move(dx: -8pt, box(height: 0.8em, assets.wave-dark)),
+              move(dx: -8pt, box(height: 0.8em, h4-mark(self))),
               strong(text(fill: self.colors.primary-dark, it))
             )
           )
