@@ -1,8 +1,8 @@
 // This theme is inspired by https://github.com/matze/mtheme
 // The origin code was written by https://github.com/Enivex
 
-#import "@preview/touying:0.6.3": *
-#import "@preview/iconic-salmon-fa:1.1.0": *
+#import "@preview/touying:0.7.4": *
+#import "@preview/iconify:0.5.3": icon, provide-icons
 #import "theme-color.typ": *
 #import "callout.typ": *
 #import "fontset.typ": default-fontset
@@ -15,7 +15,7 @@
   logo-title: image("assets/logo-title.svg"),
 )
 
-#let h4-mark(self) = block(width: 0.8em, height: 0.8em, {
+#let h4-mark(self) = block(width: 0.6em, height: 0.6em, {
   place(
     bottom + right,
     rect(
@@ -103,23 +103,28 @@
     self.store.align = align
   }
   let header(self) = {
-    let subtitle = if subtitle == none { utils.call-or-display(self, self.store.subtitle) }
+    let subtitle = if subtitle == none {
+      utils.call-or-display(self, self.store.subtitle)
+    } else {
+      stack(dir: ltr, spacing: 0.4em, scale(sym.bar, y: 150%), subtitle)
+    }
     set std.align(top)
+    show: pad.with(x: 0.8em)
     show: components.cell.with(
       fill: self.colors.neutral-lightest,
-      inset: (left: 0.8em, rest: 4pt),
+      // inset: (left: 0.8em, rest: 4pt),
       height: 2.4em,
       stroke: (
-        bottom: 4pt + self.colors.primary-dark
+        bottom: 2.4pt + self.colors.primary-dark.lighten(30%)
       )
     )
     set std.align(horizon)
-    place(dx: -0.8em, dy: 0.4em, block(height: 1.2em, assets.wave-dark))
+    // place(dx: -0.8em, dy: 0.4em, block(height: 1.2em, assets.wave-dark))
     components.left-and-right(
       stack(
         dir: ltr,
         spacing: 0.5em,
-        h(2em),
+        h(0.8em),
         {
           set text(fill: self.colors.primary-dark, weight: "bold", size: 1.4em)
           if title != auto {
@@ -133,7 +138,7 @@
           subtitle
         },
       ),
-      utils.call-or-display(self, move(assets.logo-blue)),
+      utils.call-or-display(self, scale(assets.logo-blue, 80%)),
     )
   }
   let footer(self) = {
@@ -248,7 +253,7 @@
       {
         grid(
           columns: 100%,
-          rows: (2fr, 1fr, auto),
+          rows: (2fr, 1fr, 32%),
           row-gutter: 1cm,
           {
             set align(center + horizon)
@@ -261,16 +266,23 @@
             text(size: 1.2em, weight: "bold", self.info.subtitle)
           } else { none },
           {
+            let icon-term(body) = scale(text(body, fill: self.colors.secondary), 200%)
+            let icon-items = (
+              if self.info.at("author", default: none) != none { terms.item(icon("mdi:account-circle"), self.info.author) } else { none },
+              if self.info.at("institution", default: none) != none { terms.item(icon("mdi:school"), self.info.institution) } else { none },
+              if self.info.at("date", default: none) != none { 
+                terms.item(icon("mdi:calendar-end"), self.info.date.display(self.info.at("datetime-format", default: "[year]年[month]月[day]日"))) 
+              } else { none },
+            ).filter(it => it != none)
             set align(left)
             set text(size: 0.8em)
-            terms(
-              ..(
-                if self.info.at("author", default: none) != none { terms.item(fa-circle-user(), self.info.author) } else { none },
-                if self.info.at("institution", default: none) != none { terms.item(fa-institution(), self.info.institution) } else { none },
-                if self.info.at("date", default: none) != none { 
-                  terms.item(fa-calendar(), self.info.date.display(self.info.at("datetime-format", default: "[year]年[month]月[day]日"))) 
-                } else { none },
-              ).filter(it => it != none)
+            grid(
+              columns: 2,
+              rows: (1em, ) * icon-items.len(),
+              align: (center, left),
+              row-gutter: 1em,
+              column-gutter: 1.0em,
+              ..icon-items.map(it => (icon-term(it.term), it.description)).flatten()
             )
           }
         )
@@ -363,18 +375,18 @@
       dx: 1.3cm,
       dy: -2cm,
     )
-    v(4cm)
+    v(32%)
     show: pad.with(x: 16%)
     {
-      set text(size: 1.5em)
       stack(
         dir: ttb,
         spacing: 1em,
         {
-          place(block(
-            height: 1em,
-            assets.wave
-          ),)
+          // place(block(
+          //   height: 1em,
+          //   assets.wave
+          // ),)
+          set text(size: 2.5em, weight: "bold")
           align(center, text(self.colors.primary-dark, utils.display-current-heading(
             level: level,
             numbered: numbered,
@@ -630,6 +642,10 @@
             )
           )
         }
+
+        provide-icons(
+          json("assets/mdi.json")
+        )
         body
       },
       alert: utils.alert-with-primary-color,

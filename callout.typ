@@ -1,5 +1,6 @@
 #import "@preview/showybox:2.0.4": *
 #import "theme-color.typ": theme-color
+#import "@preview/iconify:0.5.3": icon, provide-icons
 
 #let callout(
   icon: none,
@@ -45,7 +46,7 @@
 }
 
 #let tip = callout.with(
-  icon: "💡"
+  icon: text(icon(y: -0.2em, height: 1.2em, "mdi:lightbulb"), fill: theme-color.orange.lighten(20%)),
 )
 
 #let note = callout.with(
@@ -93,29 +94,29 @@
 // Callout with icons
 
 #let example-i = example.with(
-  icon: "💡",
+  icon: text(icon(y: -0.2em, height: 1.2em, "mdi:lightbulb"), fill: theme-color.lime.darken(20%)),
 )
 
 #let important-i = important.with(
-  icon: "🌟",
+  icon: text(icon(y: -0.2em, height: 1.2em, "mdi:stars"), fill: theme-color.purple.darken(20%)),
 )
 
 #let warning-i = warning.with(
-  icon: "❗️",
+  icon: text(icon(y: -0.2em, height: 1.2em, "mdi:exclamation-thick"), fill: theme-color.orange.darken(20%)),
 )
 
 #let caution-i = caution.with(
-  icon: "🚩",
+  icon: text(icon(y: -0.2em, height: 1.2em, "mdi:alert"), fill: theme-color.red.darken(20%)),
 )
 
 #let note-i = note.with(
-  icon: "✏️",
+  icon: text(icon(y: -0.2em, height: 1.2em, "mdi:pencil"), fill: theme-color.blue.darken(40%)),
 )
 
 #let refer-i = refer.with(
-  icon: "🔖",
+  icon: text(icon(y: -0.2em, height: 1.2em, "mdi:bookmark"), fill: theme-color.aqua.darken(20%)),
 )
 
 #let question-i = question.with(
-  icon: "❓",
+  icon: text(icon(y: -0.2em, height: 1.2em, "mdi:question-mark"), fill: theme-color.pink.darken(0%)),
 )
